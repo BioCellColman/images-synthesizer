@@ -31,33 +31,36 @@ for img_index in range(IMAGES_TO_CREATE):
     lbl_handler = label_handler.LabelHandler(IMAGE_HEIGHT, IMAGE_WIDTH, LAYERS_COUNT)
 
     for cell_index in range(get_random_cell_count()):
-        # pick a mask + extract its image matrix
-        mask_row = pick_random_mask(masks_csv_data)
-        mask_img = read_mask(mask_row)
-        extracted_cell = extract_cell_image(mask_row.left_x.values[0],
-                                            mask_row.right_x.values[0],
-                                            mask_row.top_y.values[0],
-                                            mask_row.bottom_y.values[0],
-                                            images_map[mask_row.src_img_name.values[0]],
-                                            mask_img)
+        try:
+            # pick a mask + extract its image matrix
+            mask_row = pick_random_mask(masks_csv_data)
+            mask_img = read_mask(mask_row)
+            extracted_cell = extract_cell_image(mask_row.left_x.values[0],
+                                                mask_row.right_x.values[0],
+                                                mask_row.top_y.values[0],
+                                                mask_row.bottom_y.values[0],
+                                                images_map[mask_row.src_img_name.values[0]],
+                                                mask_img)
 
-        # for PLACING_ATTEMPTS - try to place the cell
-        placed = False
-        for attempt in range(PLACING_ATTEMPTS):
-            # randomly pick a position
-            col = img_handler.get_random_col_pos()
-            row = img_handler.get_random_row_pos()
-            # check position validity
-            result_layer, change_other = lbl_handler.check_position(col, row, mask_img)
+            # for PLACING_ATTEMPTS - try to place the cell
+            placed = False
+            for attempt in range(PLACING_ATTEMPTS):
+                # randomly pick a position
+                col = img_handler.get_random_col_pos()
+                row = img_handler.get_random_row_pos()
+                # check position validity
+                result_layer, change_other = lbl_handler.check_position(col, row, mask_img)
 
-            if not result_layer == INVALID_POS:
-                img_handler.place_cell(col, row, extracted_cell)
-                lbl_handler.place_cell(col, row, mask_img, result_layer, change_other)
-                placed = True
-                break
+                if not result_layer == INVALID_POS:
+                    img_handler.place_cell(col, row, extracted_cell)
+                    lbl_handler.place_cell(col, row, mask_img, result_layer, change_other)
+                    placed = True
+                    break
 
-        if not placed:
-            print(f"failed to place cell..")
+            if not placed:
+                print(f"failed to place cell..")
+        except:
+            print("bad mask..")
 
     # add noise to background and normalized
     img_handler.add_background_noise()
