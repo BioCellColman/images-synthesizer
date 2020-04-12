@@ -1,5 +1,5 @@
 # number of images to synthesize
-IMAGES_TO_CREATE = 100
+IMAGES_TO_CREATE = 3000
 # number of original images to draw cells from each time
 SRC_IMG_NUM = 5
 # quantity of cells in each synthesized image

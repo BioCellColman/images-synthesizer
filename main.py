@@ -24,8 +24,7 @@ for img_index in range(IMAGES_TO_CREATE):
     # choose SRC_IMG_NUM images to draw cells from + read images
     images_map = get_random_images(images_names, SRC_IMG_NUM)
     # filter the csv table to only images masks
-    masks_csv_data = csv_file_data[(csv_file_data.src_img_name.isin(list(images_map.keys()))) &
-                                   (~csv_file_data.mask_id.isin(bad_masks))]
+    masks_csv_data = csv_file_data[(csv_file_data.src_img_name.isin(list(images_map.keys())))&(~csv_file_data.mask_id.isin(bad_masks))]
 
     # create plain label matrix + plain image matrix
     img_handler = image_handler.ImageHandler(IMAGE_HEIGHT, IMAGE_WIDTH, max_height, max_width, noise_matrix)
