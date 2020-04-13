@@ -20,7 +20,9 @@ BOTH = 3
 INVALID_POS = 4
 
 # define all relevant files paths
+# TODO : change to your data base directory
 img_src_path = 'C:\\Users\\yarde\\Documents\\BioCell\\data'
+# img_src_path = '/content/drive/My Drive/BioCell/images-synthesizer'
 # inputs
 csv_file_name = 'filtered_cells.csv'
 noise_matrix_file_name = 'noise_matrix.npy'

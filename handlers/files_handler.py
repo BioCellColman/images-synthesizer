@@ -24,7 +24,7 @@ def get_mask_path(mask_name):
 
 
 def get_output_img_path(img_name):
-	return img_src_path + '/' + output_dir + '/' + output_img_dir + '/' + img_name + '.tiff'
+	return img_src_path + '/' + output_dir + '/' + output_img_dir + '/' + img_name + '.png'
 
 
 def get_test_output_img_path(img_name):
